@@ -44,7 +44,21 @@ public class ListController : Controller
     // TODO #2 - Complete the Jobs action method
     public IActionResult Jobs(string column, string value)
     {
-        return View();
+        List<Job> jobs;
+        if (column.ToLower().Equals("all"))
+        {
+            jobs = JobData.FindAll();
+            ViewBag.title = "All Jobs";
+        }
+        else
+        {
+            jobs = JobData.FindByColumnAndValue(column, value);
+            ViewBag.title = "Seleted Jobs";
+        }
+        ViewBag.jobs = jobs;
+
+        return View(jobs);
+
     }
 }
 
